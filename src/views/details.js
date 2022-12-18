@@ -5,6 +5,7 @@ import * as roomService from '../data/room.js';
 import * as reservationService from '../data/reservation.js';
 
 import { submitHandler } from '../util.js';
+import { showModal } from './modal.js';
 
 
 const detailsTemplate = (room, userId, onDelete, onBook, onConfirm, onRemove) => html`
@@ -29,7 +30,7 @@ const reservationForm = (onSubmit) => html`
 
 const ownerTemplate = (room, onDelete) => html`
 <a href='/edit/${room.objectId}'>Edit</a>
-<a href='javascript:void(0)' @click=${onDelete}>Delete</a>`;
+<a href='javascript:void(0)' @click=${() => showModal(onDelete, 'take down this offer?')}>Delete</a>`;
 
 const reservationCard = (res, userId, onConfirm, onRemove) => html`
 <li>
@@ -37,9 +38,9 @@ const reservationCard = (res, userId, onConfirm, onRemove) => html`
   ${res.host.objectId === userId && !res.isConfirmed
     ? html`
       <button @click=${(e) => onConfirm(e, res)}>Confirm</button>
-      <button @click=${(e) => onRemove(e, res.objectId)}>Remove</button>` 
+      <button @click=${(e) => showModal(onRemove, 'remove this reservation?', e, res.objectId)}>Remove</button>` 
     : !res.isConfirmed 
-      ? html`<button @click=${(e) => onRemove(e, res.objectId)}>Remove</button>` 
+      ? html`<button @click=${(e) => showModal(onRemove, 'remove this reservation?', e, res.objectId)}>Remove</button>` 
       : nothing}
 </li>`;
 
@@ -76,12 +77,8 @@ export async function detailsView(ctx) {
   ctx.render(detailsTemplate(ctx.data, user?.objectId, onDelete, submitHandler(onBook), onConfirm, onRemove));
 
   async function onDelete() {
-    const choice = confirm('Are you sure you want to take down this offer?');
-
-    if (choice) {
-      await roomService.deleteById(id);
-      ctx.page.redirect('/rooms');
-    }
+    await roomService.deleteById(id);
+    ctx.page.redirect('/rooms');
   }
 
   async function onBook({ startDate, endDate }, form) {
@@ -133,14 +130,10 @@ export async function detailsView(ctx) {
   }
 
   async function onRemove(e, resId) {
-    const choice = confirm('Are you sure you want to remove this reservation?');
-
-    if (choice) {
-      e.target.setAttribute('disabled', true);
-      e.target.parentElement.querySelector('button').setAttribute('disabled', true);
-      
-      await reservationService.deleteById(resId);
-      ctx.page.redirect('/rooms/' + id);
-    }
+    e.target.setAttribute('disabled', true);
+    e.target.parentElement.querySelector('button').setAttribute('disabled', true);
+    
+    await reservationService.deleteById(resId);
+    ctx.page.redirect('/rooms/' + id);
   }
 }
