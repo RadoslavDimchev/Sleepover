@@ -13,6 +13,7 @@ import { homeView } from './views/home.js';
 import { loginView } from './views/login.js';
 import { logoutAction } from './views/logout.js';
 import { navTemplate } from './views/nav.js';
+import { notFoundView } from './views/notFound.js';
 import { registerView } from './views/register.js';
 
 
@@ -28,6 +29,6 @@ page('/edit/:id', preloadRoom('id', 'rooms'), isOwner(), editView);
 page('/login', loginView);
 page('/register', registerView);
 page('/logout', logoutAction);
-page('*', '/');
+page('*', notFoundView);
 
 page.start();
