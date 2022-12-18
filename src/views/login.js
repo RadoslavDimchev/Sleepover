@@ -2,6 +2,7 @@ import { html } from '../lib/lit-html.js';
 
 import { submitHandler } from '../util.js';
 import { login } from '../data/user.js';
+import { showNotification } from './notify.js';
 
 
 const loginTemplate = (onSubmit) => html`
@@ -11,7 +12,7 @@ const loginTemplate = (onSubmit) => html`
   <label>Password <input type="password" name="password"></label>
   <button>Login</button>
 </form>
-<span>You don't have an account yet</span> 
+<span>You don't have an account yet?</span> 
 <a href="/register">Sign up</a>`;
 
 export function loginView(ctx) {
@@ -19,7 +20,7 @@ export function loginView(ctx) {
 
   async function onLogin({ email, password }) {
     if (!email || !password) {
-      return alert('All fields are required!');
+      return showNotification('All fields are required!');
     }
 
     await login(email, password);

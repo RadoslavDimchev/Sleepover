@@ -2,6 +2,7 @@ import { html } from '../lib/lit-html.js';
 
 import * as roomService from '../data/room.js';
 import { submitHandler } from '../util.js';
+import { showNotification } from './notify.js';
 
 
 const editTemplate = (room, onSubmit) => html`
@@ -27,7 +28,7 @@ export function editView(ctx) {
     openForBooking = Boolean(openForBooking);
 
     if (!name || !location || Number.isNaN(beds) || Number.isNaN(price)) {
-      return alert('All fields are required!');
+      return showNotification('All fields are required!');
     }
 
     const userId = ctx.user.objectId;
@@ -39,7 +40,7 @@ export function editView(ctx) {
       ctx.page.redirect('/rooms/' + id);
 
     } catch (error) {
-      alert(error.message);
+      showNotification(error.message);
     } finally {
       form.querySelector('button').removeAttribute('disabled');
     }

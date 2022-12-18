@@ -6,6 +6,7 @@ import * as reservationService from '../data/reservation.js';
 
 import { submitHandler } from '../util.js';
 import { showModal } from './modal.js';
+import { showNotification } from './notify.js';
 
 
 const detailsTemplate = (room, userId, onDelete, onBook, onConfirm, onRemove) => html`
@@ -86,13 +87,13 @@ export async function detailsView(ctx) {
     endDate = new Date(endDate);
 
     if (isNaN(startDate)) {
-      return alert('Invalid starting date!');
+      return showNotification('Invalid starting date!');
     }
     if (isNaN(endDate)) {
-      return alert('Invalid ending date!');
+      return showNotification('Invalid ending date!');
     }
     if (startDate >= endDate) {
-      return alert('Ending date must be after starting date!');
+      return showNotification('Ending date must be after starting date!');
     }
 
     const reservationData = {

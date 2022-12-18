@@ -1,0 +1,16 @@
+.notification {
+  font-size: 1.5em;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  margin: 1em;
+}
+
+.notification span {
+  display: inline-block;
+  padding: 0.5em 2em 0.5em 2em;
+  border-radius: 10px;
+  background-color: rgb(187, 228, 167);
+}

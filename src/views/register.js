@@ -2,6 +2,7 @@ import { html } from '../lib/lit-html.js';
 
 import { submitHandler } from '../util.js';
 import { register } from '../data/user.js';
+import { showNotification } from './notify.js';
 
 
 const registerTemplate = (onSubmit) => html`
@@ -13,7 +14,7 @@ const registerTemplate = (onSubmit) => html`
   <label>Repeat <input type="password" name="repass"></label>
   <button>Register</button>
 </form>
-<span>You already have an account</span>
+<span>You already have an account?</span>
 <a href="/login">Sign in</a>`;
 
 export function registerView(ctx) {
@@ -21,10 +22,10 @@ export function registerView(ctx) {
 
   async function onRegister({ email, username, password, repass }) {
     if (!email || !username || !password) {
-      return alert('All fields are required!');
+      return showNotification('All fields are required!');
     }
     if (password !== repass) {
-      return alert('Passwords don\'t match!');
+      return showNotification('Passwords don\'t match!');
     }
 
     await register(email, username, password);

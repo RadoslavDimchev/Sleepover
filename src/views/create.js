@@ -2,6 +2,7 @@ import { html } from '../lib/lit-html.js';
 
 import * as roomService from '../data/room.js';
 import { submitHandler } from '../util.js';
+import { showNotification } from './notify.js';
 
 
 const createTemplate = (onSubmit) => html`
@@ -24,7 +25,7 @@ export function createView(ctx) {
     info = info.split('\n');
 
     if (!name || !location || Number.isNaN(beds) || Number.isNaN(price)) {
-      return alert('All fields are required!');
+      return showNotification('All fields are required!');
     }
 
     const userId = ctx.user?.objectId;
@@ -36,7 +37,7 @@ export function createView(ctx) {
       ctx.page.redirect('/rooms/' + result.objectId);
 
     } catch (error) {
-      alert(error.message);
+      showNotification(error.message);
     } finally {
       form.querySelector('button').removeAttribute('disabled');
     }
