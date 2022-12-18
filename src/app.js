@@ -28,5 +28,6 @@ page('/edit/:id', preloadRoom('id', 'rooms'), isOwner(), editView);
 page('/login', loginView);
 page('/register', registerView);
 page('/logout', logoutAction);
+page('*', '/');
 
 page.start();
