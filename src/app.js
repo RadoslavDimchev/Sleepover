@@ -23,6 +23,7 @@ page(addUserNav(navTemplate));
 
 page('/', homeView);
 page('/rooms', catalogView);
+page('/my-rooms', catalogView);
 page('/rooms/:id', preloadRoom('id', 'rooms'), detailsView);
 page('/host', hasUser(), createView);
 page('/edit/:id', preloadRoom('id', 'rooms'), isOwner(), editView);

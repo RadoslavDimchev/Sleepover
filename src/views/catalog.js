@@ -5,13 +5,15 @@ import { repeat } from '../lib/directives/repeat.js';
 import * as roomService from '../data/room.js';
 
 
-const catalogTemplate = (list) => html`
-<h2>Available Rooms</h2>
+const catalogTemplate = (list, ctx) => html`
+${ctx.pathname === '/my-rooms' && ctx.user 
+? html`<h2>My Rooms</h2>`
+: html`<h2>Available Rooms</h2>`}
 ${list}`;
 
 const listTemplate = (rooms) => html`
 <section>
-  ${rooms.length === 0 ? html`<p>There are no available rooms</p>` :  repeat(rooms, r => r.objectId, roomCard)}
+  ${rooms.length === 0 ? html`<p>There are no rooms</p>` :  repeat(rooms, r => r.objectId, roomCard)}
 </section>`;
 
 const roomCard = (room) => html`
@@ -25,11 +27,18 @@ const roomCard = (room) => html`
 </article>`;
 
 export async function catalogView(ctx) {
-  ctx.render(catalogTemplate(html`<p>Loading &hellip;</p>`));
+  ctx.render(catalogTemplate(html`<p>Loading &hellip;</p>`, ctx));
 
-  const { results: rooms } = await roomService.getAll(ctx.user?.objectId);
-
+  const {results: rooms} = await loadData(ctx);
   rooms.forEach(r => r.isOwner = r.owner.objectId === ctx.user?.objectId);
 
-  ctx.render(catalogTemplate(listTemplate(rooms)));
+  ctx.render(catalogTemplate(listTemplate(rooms), ctx));
+}
+
+async function loadData(ctx) {
+  if(ctx.pathname === '/my-rooms' && ctx.user) {
+    return await roomService.getAllMy(ctx.user.objectId);
+  } else {
+    return await roomService.getAll(ctx.user?.objectId);
+  }
 }
