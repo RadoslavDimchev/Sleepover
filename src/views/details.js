@@ -14,8 +14,12 @@ const detailsTemplate = (room, userId, onDelete, onBook, onConfirm, onRemove) =>
 <p>Location: ${room.location}</p>
 <p>Beds: ${room.beds}</p>
 <p>Price: ${room.price} lv.</p>
-<p>More Infomation / Amenities:</p>
-${room.info.length === 0 ? html`<p>There are no information or amenities</p>` : html`<ul>${room.info.map(informationTemplate)}</ul>`}
+<div>
+  <span>More Infomation / Amenities:</span>
+  ${room.info.length === 0 
+    ? html`<span>There are no information or amenities</span>` 
+    : html`<ul>${room.info.map(informationTemplate)}</ul>`}
+</div>
 ${userId && !room.isOwner ? reservationForm(onBook) : nothing}
 ${room.isOwner ? ownerTemplate(room, onDelete) : nothing}
 ${userId ? reservationsTemplate(room, userId, onConfirm, onRemove) : nothing}`;
@@ -30,8 +34,10 @@ const reservationForm = (onSubmit) => html`
 </form>`;
 
 const ownerTemplate = (room, onDelete) => html`
-<a href='/edit/${room.objectId}'>Edit</a>
-<a href='javascript:void(0)' @click=${() => showModal(onDelete, 'take down this offer?')}>Delete</a>`;
+<div>
+  <a href='/edit/${room.objectId}'>Edit</a>
+  <a href='javascript:void(0)' @click=${() => showModal(onDelete, 'take down this offer?')}>Delete</a>
+</div>`;
 
 const reservationCard = (res, userId, onConfirm, onRemove) => html`
 <li>
@@ -74,6 +80,7 @@ export async function detailsView(ctx) {
     room.confirmedRes = confirmed.results;
     room.pendingRes = pending.results;
   }
+  room.info = room.info.map(e => e.trim()).filter(e => e !== '');
 
   ctx.render(detailsTemplate(ctx.data, user?.objectId, onDelete, submitHandler(onBook), onConfirm, onRemove));
 

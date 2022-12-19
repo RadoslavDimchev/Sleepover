@@ -8,11 +8,12 @@ import { showNotification } from './notify.js';
 const editTemplate = (room, onSubmit) => html`
 <h2>Edit Room</h2>
 <form @submit=${onSubmit}>
-  <label>Name: <input type="text" name="name" .value=${room.name}></label>
-  <label>Location: <input type="text" name="location" .value=${room.location}></label>
-  <label>Beds: <input type="number" name="beds" .value=${room.beds}></label>
-  <label>Price: <input type="number" name="price" .value=${room.price}></label>
-  <label>More Infomation / Amenities: <textarea type="text" name="info" .value=${room.info.join('\n')}></textarea></label>
+  <label>Name* <input type="text" name="name" .value=${room.name}></label>
+  <label>Location* <input type="text" name="location" .value=${room.location}></label>
+  <label>Beds* <input type="number" name="beds" .value=${room.beds}></label>
+  <label>Price* <input type="number" name="price" .value=${room.price}></label>
+  <label>More Infomation / Amenities <textarea type="text" name="info"
+      .value=${room.info.join('\n')}></textarea></label>
   <label>Open for booking: <input type="checkbox" name="openForBooking" .checked=${room.openForBooking}></label>
   <button>Save Changes</button>
 </form>`;
@@ -28,14 +29,14 @@ export function editView(ctx) {
     openForBooking = Boolean(openForBooking);
 
     if (!name || !location || Number.isNaN(beds) || Number.isNaN(price)) {
-      return showNotification('All fields are required!');
+      return showNotification('Fill all required fields!');
     }
 
     const userId = ctx.user.objectId;
 
     try {
       form.querySelector('button').setAttribute('disabled', true);
-      
+
       await roomService.update(id, { name, location, beds, price, openForBooking, info }, userId);
       ctx.page.redirect('/rooms/' + id);
 

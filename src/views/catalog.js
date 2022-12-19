@@ -6,9 +6,7 @@ import * as roomService from '../data/room.js';
 
 
 const catalogTemplate = (list, ctx) => html`
-${ctx.pathname === '/my-rooms' && ctx.user 
-? html`<h2>My Rooms</h2>`
-: html`<h2>Available Rooms</h2>`}
+<h2>${ctx.pathname === '/my-rooms' && ctx.user ? 'My Rooms' : 'Available Rooms'}</h2>
 ${list}`;
 
 const listTemplate = (rooms) => html`
