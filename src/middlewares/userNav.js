@@ -4,7 +4,7 @@ export function addUserNav(navTemplate) {
   return function (ctx, next) {
     if (Boolean(ctx.user) !== hasUser) {
       hasUser = Boolean(ctx.user);
-      ctx.renderNav(navTemplate(ctx.user));
+      ctx.renderNav(navTemplate(ctx.user, ctx.pathname));
     }
 
     next();

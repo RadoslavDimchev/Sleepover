@@ -1,4 +1,5 @@
 import page from './lib/page.mjs';
+import { setActive } from './middlewares/active.js';
 import { hasUser, isOwner } from './middlewares/guards.js';
 import { preloadRoom } from './middlewares/preload.js';
 import { addRender } from './middlewares/render.js';
@@ -21,6 +22,7 @@ import { registerView } from './views/register.js';
 page(addRender(document.querySelector('main'), document.querySelector('header')));
 page(addSession(getUserData));
 page(addUserNav(navTemplate));
+page(setActive());
 
 page('/', homeView);
 page('/rooms', catalogView);
