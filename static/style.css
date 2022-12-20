@@ -1,22 +1,22 @@
-body {
-  width: 980px;
-  background-color: blanchedalmond;
-}
+@import "site.css";
+@import "home.css";
+@import "catalog.css";
+@import "details.css";
+@import "create.css";
+@import "edit.css";
+@import "login.css";
+@import "register.css";
+@import "profile.css";
+@import "notFound.css";
+@import "modal.css";
+@import "navigation.css";
+@import "notification.css";
 
-.room-card {
-  float: left;
-  width: 300px;
-  border-radius: 16px;
-  box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2);
-  margin: 32px;
-  padding: 16px 32px;
-  background-color: antiquewhite;
-}
 
-label {
-  display: block;
-}
-
-.own-room {
-  background-color: rgb(187, 228, 167);
+:root {
+  --white: #fff;
+  --sand-dollar: #e4d4c8;
+  --tan: #d0b49f;
+  --brown: #a47551;
+  --carafe: #523a28;
 }

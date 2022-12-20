@@ -1,0 +1,27 @@
+nav {
+  background-color: var(--carafe);
+  overflow: hidden;
+}
+
+nav a,
+nav span {
+  float: left;
+  color: var(--sand-dollar);
+  text-align: center;
+  padding: 14px 20px;
+  font-size: 18px;
+}
+
+nav div {
+  float: right;
+}
+
+nav a:hover {
+  background-color: var(--tan);
+  color: var(--white);
+}
+
+nav a.active {
+  background-color: var(--brown);
+  color: var(--white);
+}
