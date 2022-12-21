@@ -6,7 +6,15 @@ import * as roomService from '../data/room.js';
 
 
 const catalogTemplate = (list, ctx) => html`
-<h2>${ctx.pathname === '/my-rooms' && ctx.user ? 'My Rooms' : 'Available Rooms'}</h2>
+<div>
+${ctx.pathname === '/my-profile'
+  ? html`
+    <h2>My Profile</h2>
+    <p>Username: ${ctx.user.username}</p>
+    <p>Email: ${ctx.user.email}</p>
+    <h2>My Rooms</h2>`
+  : html`<h2>Available Rooms</h2>`}
+</div>
 ${list}`;
 
 const listTemplate = (rooms) => html`
@@ -34,7 +42,7 @@ export async function catalogView(ctx) {
 }
 
 async function loadData(ctx) {
-  if(ctx.pathname === '/my-rooms' && ctx.user) {
+  if(ctx.pathname === '/my-profile') {
     return await roomService.getAllMy(ctx.user.objectId);
   } else {
     return await roomService.getAll(ctx.user?.objectId);

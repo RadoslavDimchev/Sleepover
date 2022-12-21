@@ -15,7 +15,6 @@ import { loginView } from './views/login.js';
 import { logoutAction } from './views/logout.js';
 import { navTemplate } from './views/nav.js';
 import { notFoundView } from './views/notFound.js';
-import { profileView } from './views/profile.js';
 import { registerView } from './views/register.js';
 
 
@@ -26,11 +25,10 @@ page(setActive());
 
 page('/', homeView);
 page('/rooms', catalogView);
-page('/my-rooms', catalogView);
 page('/rooms/:id', preloadRoom('id', 'rooms'), detailsView);
+page('/my-profile', hasUser(), catalogView);
 page('/host', hasUser(), createView);
 page('/edit/:id', preloadRoom('id', 'rooms'), isOwner(), editView);
-page('/my-profile', hasUser(), profileView);
 page('/login', loginView);
 page('/register', registerView);
 page('/logout', logoutAction);

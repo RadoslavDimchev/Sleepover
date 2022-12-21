@@ -1,12 +1,12 @@
 nav {
-  background-color: var(--carafe);
+  background-color: var(--tan);
   overflow: hidden;
 }
 
 nav a,
 nav span {
   float: left;
-  color: var(--sand-dollar);
+  color: var(--carafe);
   text-align: center;
   padding: 14px 20px;
   font-size: 18px;
@@ -17,11 +17,11 @@ nav div {
 }
 
 nav a:hover {
-  background-color: var(--tan);
+  background-color: var(--carafe);
   color: var(--white);
 }
 
 nav a.active {
-  background-color: var(--brown);
+  background-color: var(--carafe);
   color: var(--white);
 }

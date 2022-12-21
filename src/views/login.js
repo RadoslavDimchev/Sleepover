@@ -6,14 +6,18 @@ import { showNotification } from './notify.js';
 
 
 const loginTemplate = (onSubmit) => html`
-<h2>Login</h2>
-<form @submit=${onSubmit}>
-  <label>Email <input type="text" name="email"></label>
-  <label>Password <input type="password" name="password"></label>
-  <button>Login</button>
-</form>
-<span>You don't have an account yet?</span> 
-<a href="/register">Sign up</a>`;
+<div class="container">
+  <h2>Login</h2>
+  <form @submit=${onSubmit}>
+    <label>Email</label>
+    <input type="text" name="email">
+    <label>Password</label>
+    <input type="password" name="password">
+    <button>Login</button>
+  </form>
+  <span>You don't have an account yet?</span>
+  <a href="/register">Sign up</a>
+</div>`;
 
 export function loginView(ctx) {
   ctx.render(loginTemplate(submitHandler(onLogin)));

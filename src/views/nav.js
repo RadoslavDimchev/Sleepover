@@ -10,8 +10,7 @@ export const navTemplate = (user) => html`
     ? html`
     <span>Welcome, ${user.username}!</span>
     <a href="/host">Host</a>
-    <a href="/my-rooms">My Rooms</a>
-    <a href="/my-profile">My Profile</a>
+    <a href="/my-profile">My Profile & Rooms</a>
     <a href="/logout">Logout</a>`
     : html`
     <a href="/login">Login</a>

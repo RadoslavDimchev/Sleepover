@@ -1,11 +1,42 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background-color: var(--sand-dollar);
   font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--carafe);
+  text-align: center;
+}
+
+button {
+  padding: 8px 16px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  border-radius: 48px;
+  background-color: var(--carafe);
+  color: var(--white);
+}
+
+button:hover {
+  background-color: var(--tan);
+  color: var(--carafe);
+}
+
+
+textarea:focus, input:focus{
+  outline: none;
 }
 
 a {
