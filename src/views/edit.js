@@ -6,17 +6,24 @@ import { showNotification } from './notify.js';
 
 
 const editTemplate = (room, onSubmit) => html`
-<h2>Edit Room</h2>
-<form @submit=${onSubmit}>
-  <label>Name* <input type="text" name="name" .value=${room.name}></label>
-  <label>Location* <input type="text" name="location" .value=${room.location}></label>
-  <label>Beds* <input type="number" name="beds" .value=${room.beds}></label>
-  <label>Price* <input type="number" name="price" .value=${room.price}></label>
-  <label>More Infomation / Amenities <textarea type="text" name="info"
-      .value=${room.info.join('\n')}></textarea></label>
-  <label>Open for booking: <input type="checkbox" name="openForBooking" .checked=${room.openForBooking}></label>
-  <button>Save Changes</button>
-</form>`;
+<div class="container">
+  <h2>Edit Room</h2>
+  <form @submit=${onSubmit}>
+    <label>Name<span class="asterisk">*</span></label>
+    <input type="text" name="name" .value=${room.name}>
+    <label>Location<span class="asterisk">*</span></label>
+    <input type="text" name="location" .value=${room.location}>
+    <label>Beds<span class="asterisk">*</span></label>
+    <input type="number" name="beds" .value=${room.beds}>
+    <label>Price<span class="asterisk">*</span></label>
+    <input type="number" name="price" .value=${room.price}>
+    <label>More Infomation / Amenities</label>
+    <textarea type="text" name="info" .value=${room.info.join('\n')}></textarea>
+    <label>Open for booking:</label>
+    <input class="booking-check" type="checkbox" name="openForBooking" .checked=${room.openForBooking}>
+    <button class="btn">Save Changes</button>
+  </form>
+</div>`;
 
 export function editView(ctx) {
   const id = ctx.params.id;

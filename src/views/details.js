@@ -10,58 +10,62 @@ import { showNotification } from './notify.js';
 
 
 const detailsTemplate = (room, userId, onDelete, onBook, onConfirm, onRemove) => html`
-<h2>${room.name}</h2>
-<p>Location: ${room.location}</p>
-<p>Beds: ${room.beds}</p>
-<p>Price: ${room.price} lv.</p>
-<div>
-  <span>More Infomation / Amenities:</span>
-  ${room.info.length === 0 
-    ? html`<span>There are no information or amenities</span>` 
+<div class="container move">
+  <h2>${room.name}</h2>
+  <p>Location: ${room.location}</p>
+  <p>Beds: ${room.beds}</p>
+  <p>Price: ${room.price} lv.</p>
+  <div class="add-info">
+    <span>More Infomation / Amenities:</span>
+    ${room.info.length === 0 
+    ? html`<p class="none-info">There are no information or amenities</p>` 
     : html`<ul>${room.info.map(informationTemplate)}</ul>`}
+  </div>
+  ${room.isOwner ? ownerTemplate(room, onDelete) : nothing}
 </div>
 ${userId && !room.isOwner ? reservationForm(onBook) : nothing}
-${room.isOwner ? ownerTemplate(room, onDelete) : nothing}
 ${userId ? reservationsTemplate(room, userId, onConfirm, onRemove) : nothing}`;
 
 const informationTemplate = (info) => html`<li>${info}</li>`;
 
 const reservationForm = (onSubmit) => html`
-<form @submit=${onSubmit}>
-  <label>From <input type="date" name="startDate"></label>
-  <label>To <input type="date" name="endDate"></label>
-  <button>Request reservation</button>
-</form>`;
+<div class="container move">
+  <form @submit=${onSubmit}>
+    <label>From <input type="date" name="startDate"></label>
+    <label>To <input type="date" name="endDate"></label>
+    <button class="btn">Request reservation</button>
+  </form>
+</div>`;
 
 const ownerTemplate = (room, onDelete) => html`
-<div>
-  <a href='/edit/${room.objectId}'>Edit</a>
-  <a href='javascript:void(0)' @click=${() => showModal(onDelete, 'take down this offer?')}>Delete</a>
-</div>`;
+<a href='/edit/${room.objectId}' class="btn owner-btn">Edit</a>
+<a href='javascript:void(0)' @click=${() => showModal(onDelete, 'take down this offer?')} class="btn owner-btn">Delete</a>`;
 
 const reservationCard = (res, userId, onConfirm, onRemove) => html`
 <li>
   From ${res.startDate.toISOString().slice(0, 10)} To ${res.endDate.toISOString().slice(0, 10)} By ${res.owner.objectId === userId ? 'You' : res.owner.username}
   ${res.host.objectId === userId && !res.isConfirmed
     ? html`
-      <button @click=${(e) => onConfirm(e, res)}>Confirm</button>
-      <button @click=${(e) => showModal(onRemove, 'remove this reservation?', e, res.objectId)}>Remove</button>` 
+      <button @click=${(e) => onConfirm(e, res)} class="btn res-card">Confirm</button>
+      <button @click=${(e) => showModal(onRemove, 'remove this reservation?', e, res.objectId)} class="btn res-card">Remove</button>` 
     : !res.isConfirmed 
-      ? html`<button @click=${(e) => showModal(onRemove, 'remove this reservation?', e, res.objectId)}>Remove</button>` 
+      ? html`<button @click=${(e) => showModal(onRemove, 'remove this reservation?', e, res.objectId)} class="btn res-card">Remove</button>` 
       : nothing}
 </li>`;
 
 const reservationsTemplate = (room, userId, onConfirm, onRemove) => html`
-<h3>Confirmed Reservations</h3>
-${room.confirmedRes.length === 0
-  ? html`<p>There are no confirmed reservations</p>`
-  : html`<ul>${repeat(room.confirmedRes, r => r.objectId, (r) => reservationCard(r, userId, onConfirm, onRemove))}</ul>`} 
-      
-<h3>Pending Reservations</h3>
-${room.pendingRes.length === 0
-  ? html`<p>There are no pending reservations</p>`
-  : html`<ul>${repeat(room.pendingRes, r => r.objectId, (r) => reservationCard(r, userId, onConfirm, onRemove))}</ul>`}
-`;
+<div class="container move">
+  <h3>Pending Reservations</h3>
+  ${room.pendingRes.length === 0
+    ? html`<p>There are no pending reservations</p>`
+    : html`<ol>${repeat(room.pendingRes, r => r.objectId, (r) => reservationCard(r, userId, onConfirm, onRemove))}</ol>`}
+</div>
+<div class="container move">
+  <h3>Confirmed Reservations</h3>
+  ${room.confirmedRes.length === 0
+    ? html`<p>There are no confirmed reservations</p>`
+    : html`<ol>${repeat(room.confirmedRes, r => r.objectId, (r) => reservationCard(r, userId, onConfirm, onRemove))}</ol>`} 
+</div>`;
 
 export async function detailsView(ctx) {
   const id = ctx.params.id;
@@ -115,6 +119,7 @@ export async function detailsView(ctx) {
     form.querySelector('button').removeAttribute('disabled');
     
     ctx.page.redirect('/rooms/' + id);
+    form.reset();
   }
 
   async function onConfirm(e, res) {

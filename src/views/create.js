@@ -6,15 +6,22 @@ import { showNotification } from './notify.js';
 
 
 const createTemplate = (onSubmit) => html`
-<h2>Host Room</h2>
-<form @submit=${onSubmit}>
-  <label>Name* <input type="text" name="name"></label>
-  <label>Location* <input type="text" name="location"></label>
-  <label>Beds* <input type="number" name="beds"></label>
-  <label>Price* <input type="number" name="price"></label>
-  <label>More Infomation / Amenities <textarea type="text" name="info"></textarea></label>
-  <button>Create Room</button>
-</form>`;
+<div class="container">
+  <h2>Host Room</h2>
+  <form @submit=${onSubmit}>
+    <label>Name<span class="asterisk">*</span></label>
+    <input type="text" name="name" placeholder="Name">
+    <label>Location<span class="asterisk">*</span></label>
+    <input type="text" name="location" placeholder="Location">
+    <label>Beds<span class="asterisk">*</span></label>
+    <input type="number" name="beds" placeholder="Beds">
+    <label>Price<span class="asterisk">*</span></label>
+    <input type="number" name="price" placeholder="Price">
+    <label>More Infomation / Amenities</label>
+    <textarea type="text" name="info" placeholder="Additional information"></textarea>
+    <button class="btn">Create Room</button>
+  </form>
+</div>`;
 
 export function createView(ctx) {
   ctx.render(createTemplate(submitHandler(onSubmit)));

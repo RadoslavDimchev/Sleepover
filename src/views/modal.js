@@ -3,8 +3,8 @@ element.className = 'overlay';
 element.innerHTML = `
 <div class="modal">
   <p></p>
-  <a href="#" class="action" id="modal-ok">OK</a>
-  <a href="#" class="action" id="modal-cancel">Cancel</a>
+  <button class="btn ok" id="modal-ok">OK</button>
+  <button class="btn cancel" id="modal-cancel">Cancel</button>
 </div>`;
 
 element.querySelector('#modal-ok').addEventListener('click', () => onChoice(true));

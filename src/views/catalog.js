@@ -6,39 +6,41 @@ import * as roomService from '../data/room.js';
 
 
 const catalogTemplate = (list, ctx) => html`
-<div>
 ${ctx.pathname === '/my-profile'
   ? html`
+  <div class="container move">
     <h2>My Profile</h2>
     <p>Username: ${ctx.user.username}</p>
     <p>Email: ${ctx.user.email}</p>
-    <h2>My Rooms</h2>`
-  : html`<h2>Available Rooms</h2>`}
-</div>
+  </div>
+  <div class="container">
+  <h2>My Rooms</h2>
+  </div>`
+  : html`<div class="container"><h2>Available Rooms</h2></div>`}
 ${list}`;
 
-const listTemplate = (rooms) => html`
+const listTemplate = (rooms, userId) => html`
 <section>
-  ${rooms.length === 0 ? html`<p>There are no rooms</p>` :  repeat(rooms, r => r.objectId, roomCard)}
+  ${rooms.length === 0 ? html`<p>There are no rooms</p>` :  repeat(rooms, r => r.objectId, (r) => roomCard(r, userId))}
 </section>`;
 
-const roomCard = (room) => html`
+const roomCard = (room, userId) => html`
 <article class=${classMap({ 'room-card': true, 'own-room' : room.isOwner })}>
   <h3>${room.name}</h3>
   <p>Location: ${room.location}</p>
   <p>Beds: ${room.beds}</p>
   <p>Price: ${room.price} lv.</p>
-  <p><a class="action" href=${'/rooms/' + room.objectId}>View Details</a></p>
-  <p>Hosted by ${room.owner.username}</p>
+  <p><a class="btn view-btn" href=${'/rooms/' + room.objectId}>View Details</a></p>
+  <p class="host">Hosted by ${room.owner.objectId === userId ? 'You' : room.owner.username}</p>
 </article>`;
 
 export async function catalogView(ctx) {
-  ctx.render(catalogTemplate(html`<p>Loading &hellip;</p>`, ctx));
+  ctx.render(catalogTemplate(html`<img src='/assets/spinner.gif' class="spinner">`, ctx));
 
   const {results: rooms} = await loadData(ctx);
   rooms.forEach(r => r.isOwner = r.owner.objectId === ctx.user?.objectId);
 
-  ctx.render(catalogTemplate(listTemplate(rooms), ctx));
+  ctx.render(catalogTemplate(listTemplate(rooms, ctx.user?.objectId), ctx));
 }
 
 async function loadData(ctx) {

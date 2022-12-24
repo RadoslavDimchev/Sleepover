@@ -6,16 +6,22 @@ import { showNotification } from './notify.js';
 
 
 const registerTemplate = (onSubmit) => html`
-<h2>Register</h2>
-<form @submit=${onSubmit}>
-  <label>Email <input type="text" name="email"></label>
-  <label>Username <input type="text" name="username"></label>
-  <label>Password <input type="password" name="password"></label>
-  <label>Repeat <input type="password" name="repass"></label>
-  <button>Register</button>
-</form>
-<span>You already have an account?</span>
-<a href="/login">Sign in</a>`;
+<div class="container">
+  <h2>Register</h2>
+  <form @submit=${onSubmit}>
+    <label>Email<span class="asterisk">*</span></label>
+    <input type="text" name="email">
+    <label>Username<span class="asterisk">*</span></label>
+    <input type="text" name="username">
+    <label>Password<span class="asterisk">*</span></label>
+    <input type="password" name="password">
+    <label>Repeat<span class="asterisk">*</span></label>
+    <input type="password" name="repass">
+    <button class="btn">Register</button>
+  </form>
+  <span>You already have an account?</span>
+  <a href="/login">Sign in</a>
+</div>`;
 
 export function registerView(ctx) {
   ctx.render(registerTemplate(submitHandler(onRegister)));

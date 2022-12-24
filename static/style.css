@@ -1,22 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 @import "site.css";
+@import "navigation.css";
 @import "home.css";
 @import "catalog.css";
 @import "details.css";
-@import "create.css";
-@import "edit.css";
-@import "login.css";
-@import "register.css";
-@import "profile.css";
+@import "create-edit.css";
 @import "notFound.css";
 @import "modal.css";
-@import "navigation.css";
 @import "notification.css";
 
 
 :root {
-  --white: #fff;
+  --white: rgb(255, 246, 246);
+  --carafe: #523a28;
   --sand-dollar: #e4d4c8;
   --tan: #d0b49f;
   --brown: #a47551;
-  --carafe: #523a28;
+  --red: rgb(250, 70, 70);
+  --blue: rgb(90, 166, 254);
 }

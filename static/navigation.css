@@ -1,27 +1,44 @@
-nav {
-  background-color: var(--tan);
-  overflow: hidden;
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
-nav a,
-nav span {
-  float: left;
-  color: var(--carafe);
-  text-align: center;
-  padding: 14px 20px;
-  font-size: 18px;
+nav {
+  overflow: hidden;
+  width: 100%;
+  padding: 8px 9%;
+  background-color: var(--carafe);
+  box-shadow: 0px 1px 15px 0px var(--carafe);
 }
 
 nav div {
   float: right;
 }
 
-nav a:hover {
-  background-color: var(--carafe);
+nav a,
+nav span {
+  float: left;
+  text-align: center;
+  padding: 18px 20px;
+}
+
+nav span  {
+  color: var(--sand-dollar);
+  font-size: 22px;
+}
+
+nav a {
   color: var(--white);
+  font-size: 20px;
+}
+
+nav a:hover {
+  color: var(--sand-dollar);
 }
 
 nav a.active {
-  background-color: var(--carafe);
-  color: var(--white);
+  color: var(--tan);
 }

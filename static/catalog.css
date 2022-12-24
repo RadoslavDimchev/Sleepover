@@ -1,0 +1,50 @@
+section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 50px 9% 80px 9%;
+}
+
+.room-card {
+  flex: 1 1 15rem;
+  position: relative;
+  margin: 18px;
+  padding: 40px 30px 10px 30px;
+  max-width: 200px;
+  color: var(--carafe);
+  background-color: var(--tan);
+  border: .1rem solid var(--carafe);
+  border-radius: 24px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+.room-card a {
+  color: var(--sand-dollar);
+}
+
+.host {
+  font-size: 12px;
+  text-align: center;
+}
+
+.room-card h3 {
+  font-size: 27px;
+  text-align: center;
+}
+
+.own-room {
+  border: .1rem solid var(--white);
+}
+
+.view-btn {
+  width: 8rem;
+  text-decoration: none;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+
+.spinner {
+  width: 50px;
+  margin: 15px auto;
+  display: block;
+}

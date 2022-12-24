@@ -1,17 +1,16 @@
 .overlay {
-  background-color: rgba(100, 100, 100, 0.5);
-  backdrop-filter: blur(5px);
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   z-index: 100;
+  backdrop-filter: blur(5px);
+  background-color: rgba(100, 100, 100, 0.5);
 }
 
 .modal {
-  background-color: white;
-  color: black;
+  background-color: var(--white);
   width: 350px;
   text-align: center;
   margin: auto;
@@ -21,4 +20,28 @@
 
 .modal p {
   margin-bottom: 32px;
+}
+
+.ok, .cancel {
+  display: inline;
+  width: 5rem;
+  color: var(--white);
+}
+
+.ok {
+  background-color: var(--blue);
+}
+
+.ok:hover {
+  background-color: var(--white);
+  color: var(--blue);
+}
+
+.cancel {
+  background-color: var(--red);
+}
+
+.cancel:hover {
+  background-color: var(--white);
+  color: var(--red)
 }

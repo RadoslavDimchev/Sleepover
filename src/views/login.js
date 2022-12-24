@@ -9,11 +9,11 @@ const loginTemplate = (onSubmit) => html`
 <div class="container">
   <h2>Login</h2>
   <form @submit=${onSubmit}>
-    <label>Email</label>
+    <label>Email<span class="asterisk">*</span></label>
     <input type="text" name="email">
-    <label>Password</label>
+    <label>Password<span class="asterisk">*</span></label>
     <input type="password" name="password">
-    <button>Login</button>
+    <button class="btn">Login</button>
   </form>
   <span>You don't have an account yet?</span>
   <a href="/register">Sign up</a>
