@@ -39,8 +39,7 @@ section {
 .view-btn {
   width: 8rem;
   text-decoration: none;
-  margin-bottom: 5px;
-  margin-top: 20px;
+  margin: 20px 0px 5px 4px;
 }
 
 .spinner {
