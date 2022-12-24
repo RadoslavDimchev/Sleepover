@@ -10,7 +10,7 @@ section {
   position: relative;
   margin: 18px;
   padding: 40px 30px 10px 30px;
-  max-width: 210px;
+  max-width: 200px;
   color: var(--carafe);
   background-color: var(--tan);
   border: .1rem solid var(--carafe);
@@ -39,7 +39,8 @@ section {
 .view-btn {
   width: 8rem;
   text-decoration: none;
-  margin: 20px 0px 5px 10px;
+  margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 .spinner {
