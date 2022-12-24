@@ -21,7 +21,9 @@ ${list}`;
 
 const listTemplate = (rooms, userId) => html`
 <section>
-  ${rooms.length === 0 ? html`<p>There are no rooms</p>` :  repeat(rooms, r => r.objectId, (r) => roomCard(r, userId))}
+  ${rooms.length === 0 
+    ? html`<div class="container"><p class="no-rooms">There are no rooms</p></div>` 
+    : repeat(rooms, r => r.objectId, (r) => roomCard(r, userId))}
 </section>`;
 
 const roomCard = (room, userId) => html`
